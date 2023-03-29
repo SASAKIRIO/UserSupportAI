@@ -66,7 +66,7 @@ namespace UnityLibrary
 
 
         [SerializeField, Tooltip("ここに発行したAPIキーを入力する")]
-        private string _apiKey = "";
+        private string _apiKey = "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";
 
         #region 調整値
 
@@ -284,11 +284,19 @@ namespace UnityLibrary
                 else
                 {
                     //Debug.Log(l_request.downloadHandler.text);
-                    OpenAIAPI _responseData = JsonUtility.FromJson<OpenAIAPI>(l_request.downloadHandler.text) ;
-                    string l_generatedText = _responseData.choices[0].text.TrimStart('\n').TrimStart('\n');
-                    _inputResults = l_generatedText;
-                    _code = _inputResults;
-                    Generate();
+                    try
+                    {
+                        OpenAIAPI _responseData = JsonUtility.FromJson<OpenAIAPI>(l_request.downloadHandler.text);
+                        string l_generatedText = _responseData.choices[0].text.TrimStart('\n').TrimStart('\n');
+                        _inputResults = l_generatedText;
+                        _code = _inputResults;
+                        Generate();
+                    }
+                    catch
+                    {
+                        Debug.LogError("APIキーが期限切れ、もしくはAPIキーが無効になっている可能性があります");
+                    }
+
                 }
 
                 EditorUtility.ClearProgressBar();
