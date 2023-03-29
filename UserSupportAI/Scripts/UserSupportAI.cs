@@ -66,7 +66,7 @@ namespace UnityLibrary
 
 
         [SerializeField, Tooltip("ここに発行したAPIキーを入力する")]
-        private string _apiKey = "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";
+        private string _apiKey = "";
 
         #region 調整値
 
